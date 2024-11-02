@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.0",
-    "@solana/web3.js": "^1.95.4",
+    "@solana/web3.js": "^1.91.0",
     "@solflare-wallet/sdk": "^1.4.2",
     "class-variance-authority": "^0.7.0",
     "next": "15.0.2",

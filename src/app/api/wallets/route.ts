@@ -1,30 +1,34 @@
-import { writeFile, readFile } from 'fs/promises';
 import { NextResponse } from 'next/server';
+import fs from 'fs';
 import path from 'path';
-
-const CSV_PATH = path.join(process.cwd(), 'wallets.csv');
 
 export async function POST(request: Request) {
   try {
-    const { addresses } = await request.json();
-    const csvContent = ['Wallet Address', ...addresses].join('\n');
-    await writeFile(CSV_PATH, csvContent);
+    const { publicKey } = await request.json();
+    
+    if (!publicKey) {
+      return NextResponse.json(
+        { error: 'Public key is required' },
+        { status: 400 }
+      );
+    }
+
+    const csvPath = path.join(process.cwd(), 'wallets.csv');
+    
+    // Create file with headers if it doesn't exist
+    if (!fs.existsSync(csvPath)) {
+      fs.writeFileSync(csvPath, 'public_key\n');
+    }
+
+    // Append the new wallet
+    fs.appendFileSync(csvPath, `${publicKey}\n`);
+
     return NextResponse.json({ success: true });
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to save addresses' }, { status: 500 });
-  }
-}
-
-export async function GET() {
-  try {
-    const content = await readFile(CSV_PATH, 'utf-8');
-    return new NextResponse(content, {
-      headers: {
-        'Content-Type': 'text/csv',
-        'Content-Disposition': 'attachment; filename=wallet-addresses.csv'
-      }
-    });
-  } catch (error) {
-    return NextResponse.json({ error: 'Failed to read addresses' }, { status: 500 });
+    console.error('Error saving wallet:', error);
+    return NextResponse.json(
+      { error: 'Failed to save wallet' },
+      { status: 500 }
+    );
   }
 } 

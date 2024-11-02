@@ -75,6 +75,20 @@ export default function WalletPage() {
         'utf8'
       );
       
+      if (currentWallet) {
+        const response = await fetch('/api/wallets', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ publicKey: currentWallet }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to save wallet address');
+        }
+      }
+      
       showToast('That worked! You\'ll receive your tokens soon!🚀', 'success');
     } catch (e) {
       console.log('handleSignMessage ::: error ::: ', e);
