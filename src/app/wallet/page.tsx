@@ -31,13 +31,11 @@ export default function WalletPage() {
       await solflare?.connect();
 
       const publicKeyStr = solflare?.publicKey.toString();
-      console.log('✨ Connected! Public Key:', publicKeyStr);
       setCurrentWallet(publicKeyStr);
 
       solflare?.on('disconnect', handleDisconnected);
 
       solflare?.on('accountChanged', (publicKey: any) => {
-        console.log('accountChanged', publicKey);
         if (!publicKey) {
           handleDisconnected();
         } else {
@@ -48,16 +46,14 @@ export default function WalletPage() {
 
       setConnected(true);
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   };
 
   const handleSignMessage = async () => {
-    console.log('handleSignMessage ::: ');
     try {
       
       if (currentWallet) {
-        console.log('currentWallet ::: ', currentWallet);
         const response = await fetch('/api/wallets', {
           method: 'POST',
           headers: {
@@ -66,7 +62,6 @@ export default function WalletPage() {
           body: JSON.stringify({ publicKey: currentWallet }),
         });
 
-        console.log('response ::: ', response);
         if (!response.ok) {
           throw new Error('Failed to save wallet address');
         }
@@ -74,7 +69,6 @@ export default function WalletPage() {
       
       showToast('That worked! You\'ll receive your tokens soon!🚀', 'success');
     } catch (e) {
-      console.log('handleSignMessage ::: error ::: ', e);
       showToast('Failed to sign message. Please try again.', 'error');
     }
   };

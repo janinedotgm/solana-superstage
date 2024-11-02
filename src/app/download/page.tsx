@@ -71,8 +71,7 @@ export default function DownloadPage() {
         },
         body: JSON.stringify({ password }),
       });
-      let body = await response.json();
-      console.log("🚀 ~ handlePasswordSubmit ~ body:", body)
+      const body = await response.json();
 
       if (response.ok && body.success) {
         setIsAuthenticated(true);

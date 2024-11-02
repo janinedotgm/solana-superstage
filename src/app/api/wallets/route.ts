@@ -9,9 +9,6 @@ const id = process.env.EDGE_CONFIG_ID;
 export async function POST(request: NextRequest) {
   try {
 
-    console.log("🚀 ~ id:", id)
-    console.log("🚀 ~ token:", token)
-
     const data = await request.json();
     const { publicKey } = data;
 
