@@ -5,6 +5,10 @@ import Solflare from "@solflare-wallet/sdk";
 import { Hero } from '../../components/hero';
 import { Button } from '../../components/button';
 import { useToast } from '@/components/toast';
+import { PublicKey } from "@solana/web3.js";
+import nacl from 'tweetnacl';
+
+const MSG = 'Yes, I want to be part of this.';
 
 export default function WalletPage() {
   const { showToast } = useToast();
@@ -52,6 +56,22 @@ export default function WalletPage() {
 
   const handleSignMessage = async () => {
     try {
+
+      const signature = await solflare?.signMessage(
+        new TextEncoder().encode(MSG),
+        'utf8'
+      );
+
+      const pubKey = new PublicKey(currentWallet);
+      const messageBuffer = new TextEncoder().encode(MSG);
+      const signatureUint8Array = new Uint8Array(signature);
+      const publicKeyUint8Array = pubKey.toBytes();
+      const verified = nacl.sign.detached.verify(messageBuffer, signatureUint8Array, publicKeyUint8Array);
+
+      if (!verified) {
+        showToast('Failed to verify signature.', 'error');
+        return;
+      }
       
       if (currentWallet) {
         const response = await fetch('/api/wallets', {
