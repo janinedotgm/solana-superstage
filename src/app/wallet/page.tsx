@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from "react";
 import Solflare from "@solflare-wallet/sdk";
 import { Connection } from '@solana/web3.js';
+import { Hero } from '../../components/hero';
+import { Button } from '../../components/button';
 
 export default function WalletPage() {
   const [connected, setConnected] = useState(false);
@@ -67,7 +69,7 @@ export default function WalletPage() {
     console.log('handleSignMessage ::: ');
     try {
       const signature = await solflare?.signMessage(
-        new TextEncoder().encode('Test message'),
+        new TextEncoder().encode('Yes, I want to be part of this.'),
         'utf8'
       );
       document.body.append(JSON.stringify(signature));
@@ -79,33 +81,34 @@ export default function WalletPage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-8">
+      <Hero
+        highlightText="Solana Superstage"
+        headingText="Almost there!"
+        subheadingText={connected ? "Click on the button below to sign a message, to prove you want to receive crypto." : "Click on the button below to connect your wallet, so you can receive crypto."}
+      >
       {connected ? (
         <div className="flex flex-col gap-4 items-center">
-          <div className="text-sm text-gray-600 mb-4">
-            Connected: {currentWallet}
-          </div>
-          <button 
+          <Button 
             onClick={handleSignMessage} 
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+            className="px-4 py-2 bg-white text-white rounded hover:bg-blue-600 transition-colors"
           >
             Sign Message
-          </button>
-          <button 
+          </Button>
+          {/* <Button 
             onClick={handleDisconnect} 
-            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
+            className="px-4 py-2 bg-red-500  rounded hover:bg-red-600 transition-colors"
           >
             Disconnect
-          </button>
+          </Button> */}
         </div>
       ) : (
-        <button 
+        <Button 
           onClick={handleConnect} 
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+          className="px-4 py-2 bg-white text-white rounded hover:bg-blue-600 transition-colors"
         >
           Connect Wallet
-        </button>
+        </Button>
       )}
-    </div>
+      </Hero>
   );
 } 

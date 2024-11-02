@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Solflare from "@solflare-wallet/sdk";
-
+import { Hero } from '../../components/hero';
 export default function Connect() {
   const router = useRouter();
 
@@ -22,8 +22,12 @@ export default function Connect() {
   }, []);
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <Hero
+        highlightText="Solana Superstage"
+        headingText="Last step. I promise ;)"
+        subheadingText="Click on the button below to connect your wallet, so you can receive crypto."
+      >
       <p>Connecting wallet...</p>
-    </div>
+    </Hero>
   );
 } 

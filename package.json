@@ -9,12 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.1.0",
     "@solana/web3.js": "^1.95.4",
     "@solflare-wallet/sdk": "^1.4.2",
+    "class-variance-authority": "^0.7.0",
     "next": "15.0.2",
     "react": "19.0.0-rc-02c0e824-20241028",
     "react-dom": "19.0.0-rc-02c0e824-20241028",
-    "react-qr-code": "^2.0.15"
+    "react-qr-code": "^2.0.15",
+    "tailwind-merge": "^2.5.4"
   },
   "devDependencies": {
     "@types/node": "^20",
