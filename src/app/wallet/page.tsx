@@ -69,6 +69,7 @@ export default function WalletPage() {
       
       showToast('That worked! You\'ll receive your tokens soon!🚀', 'success');
     } catch (e) {
+      console.error(e);
       showToast('Failed to sign message. Please try again.', 'error');
     }
   };
