@@ -84,7 +84,7 @@ export default function WalletPage() {
         <div className="flex flex-col gap-4 items-center">
           <Button 
             onClick={handleSignMessage} 
-            className="px-4 py-2 bg-white text-white rounded hover:bg-blue-600 transition-colors"
+            className="px-4 py-2 bg-white text-white font-bold rounded hover:bg-blue-600 transition-colors"
           >
             Sign Message
           </Button>
@@ -92,7 +92,7 @@ export default function WalletPage() {
       ) : (
         <Button 
           onClick={handleConnect} 
-          className="px-4 py-2 bg-white text-white rounded hover:bg-blue-600 transition-colors"
+          className="px-4 py-2 bg-white text-white font-bold rounded hover:bg-blue-600 transition-colors"
         >
           Connect Wallet
         </Button>

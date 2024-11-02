@@ -23,7 +23,7 @@ A Next.js application for gathering public keys and signing messages to verify u
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/solana-superstage-airdrop.git
+   git clone https://github.com/janinedotgm/solana-superstage-airdrop.git
    cd solana-superstage-airdrop
    ```
 
@@ -73,10 +73,6 @@ To start the application in production mode, run:
 ```bash
 npm start
 ```
-
-## 🤝 Contributing
-
-Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
 
 ## 📄 License
 
