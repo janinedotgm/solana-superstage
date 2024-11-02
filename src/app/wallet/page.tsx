@@ -5,8 +5,10 @@ import Solflare from "@solflare-wallet/sdk";
 import { Connection } from '@solana/web3.js';
 import { Hero } from '../../components/hero';
 import { Button } from '../../components/button';
+import { useToast } from '@/components/toast';
 
 export default function WalletPage() {
+  const { showToast } = useToast();
   const [connected, setConnected] = useState(false);
   const [solflare, setSolflare] = useState<any>(null);
   const [connection, setConnection] = useState<Connection | null>(null);
@@ -72,20 +74,20 @@ export default function WalletPage() {
         new TextEncoder().encode('Yes, I want to be part of this.'),
         'utf8'
       );
-      document.body.append(JSON.stringify(signature));
-      console.log('signature ::: ', signature);
+      
+      showToast('That worked! You\'ll receive your tokens soon!🚀', 'success');
     } catch (e) {
       console.log('handleSignMessage ::: error ::: ', e);
-      console.log(e);
+      showToast('Failed to sign message. Please try again.', 'error');
     }
   };
 
   return (
-      <Hero
-        highlightText="Solana Superstage"
-        headingText="Almost there!"
-        subheadingText={connected ? "Click on the button below to sign a message, to prove you want to receive crypto." : "Click on the button below to connect your wallet, so you can receive crypto."}
-      >
+    <Hero
+      highlightText="Solana Superstage"
+      headingText="Almost there!"
+      subheadingText={connected ? "Click on the button below to sign a message, to prove you want to receive crypto." : "Click on the button below to connect your wallet, so you can receive crypto."}
+    >
       {connected ? (
         <div className="flex flex-col gap-4 items-center">
           <Button 
@@ -94,12 +96,6 @@ export default function WalletPage() {
           >
             Sign Message
           </Button>
-          {/* <Button 
-            onClick={handleDisconnect} 
-            className="px-4 py-2 bg-red-500  rounded hover:bg-red-600 transition-colors"
-          >
-            Disconnect
-          </Button> */}
         </div>
       ) : (
         <Button 
@@ -109,6 +105,6 @@ export default function WalletPage() {
           Connect Wallet
         </Button>
       )}
-      </Hero>
+    </Hero>
   );
 } 
