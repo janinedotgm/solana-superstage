@@ -43,7 +43,19 @@ A Next.js application for gathering public keys and signing messages to verify u
 
    Replace `your_secure_password` with a strong password of your choice.
 
-4. Run the development server:
+4. **Update the URL in `page.tsx`:**
+
+   Before running the application, you need to replace the default URL in `src/app/page.tsx` with your desired URL. This URL is used for generating Solflare deep links.
+
+   Open `src/app/page.tsx` and locate the following line:
+
+   ```typescript
+   const [currentUrl] = useState('https://solana-superstage.vercel.app/');
+   ```
+
+   Replace `'https://solana-superstage.vercel.app/'` with your own URL.
+
+5. Run the development server:
 
    ```bash
    npm run dev

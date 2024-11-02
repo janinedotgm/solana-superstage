@@ -7,7 +7,7 @@ import { Hero } from '../components/hero';
 
 export default function Home() {
   const router = useRouter();
-  const [currentUrl] = useState('https://5c19-79-140-117-9.ngrok-free.app');
+  const [currentUrl] = useState('https://solana-superstage.vercel.app/');
 
   useEffect(() => {
     const isSolflare = /solflare/i.test(navigator.userAgent);
