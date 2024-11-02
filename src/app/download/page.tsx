@@ -4,14 +4,12 @@ import { useState, useEffect } from 'react';
 
 interface WalletStats {
   totalWallets: number;
-  lastUpdated: string | null;
 }
 
 export default function DownloadPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [stats, setStats] = useState<WalletStats>({
-    totalWallets: 0,
-    lastUpdated: null
+    totalWallets: 0
   });
 
   // Fetch stats when page loads
@@ -34,7 +32,6 @@ export default function DownloadPage() {
       
       setStats({
         totalWallets: walletCount,
-        lastUpdated: new Date().toLocaleTimeString()
       });
     } catch (error) {
       console.error('Failed to fetch stats:', error);
@@ -72,12 +69,6 @@ export default function DownloadPage() {
           </div>
           <div className="text-gray-600">Total Wallets Collected</div>
         </div>
-        
-        {stats.lastUpdated && (
-          <div className="text-sm text-gray-500 text-center">
-            Last updated: {stats.lastUpdated}
-          </div>
-        )}
       </div>
 
       <button

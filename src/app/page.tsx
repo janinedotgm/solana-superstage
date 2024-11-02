@@ -4,17 +4,10 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from 'next/navigation';
 import QRCode from 'react-qr-code';
 import { Hero } from '../components/hero';
-import { Connection } from '@solana/web3.js';
 
 export default function Home() {
   const router = useRouter();
-  const [currentUrl] = useState('https://6588-79-140-117-42.ngrok-free.app');
-
-  // Initialize Helius connection
-  const connection = new Connection(
-    `https://rpc.helius.xyz/?api-key=${process.env.NEXT_PUBLIC_HELIUS_API_KEY}`,
-    'confirmed'
-  );
+  const [currentUrl] = useState('https://5c19-79-140-117-9.ngrok-free.app');
 
   useEffect(() => {
     const isSolflare = /solflare/i.test(navigator.userAgent);

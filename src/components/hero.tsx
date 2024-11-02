@@ -2,6 +2,7 @@
 
 import React, { ReactNode } from 'react';
 import { Highlight } from './highlights';
+import Image from 'next/image';
 
 interface HeroProps {
   highlightText: string;
@@ -13,10 +14,11 @@ interface HeroProps {
 export function Hero({ highlightText, headingText, subheadingText, children }: HeroProps) {
   return (
     <div className="relative isolate min-h-screen overflow-hidden">
-      <img
-        alt=""
-        src="images/3.jpg"
-        className="absolute inset-0 -z-10 h-full w-full object-cover"
+      <Image
+        src="/path/to/hero-image.jpg"
+        alt="Hero image description"
+        width={800} // specify width
+        height={400} // specify height
       />
       <div
         aria-hidden="true"

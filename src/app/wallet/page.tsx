@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import Solflare from "@solflare-wallet/sdk";
-import { Connection } from '@solana/web3.js';
 import { Hero } from '../../components/hero';
 import { Button } from '../../components/button';
 import { useToast } from '@/components/toast';
@@ -11,18 +10,12 @@ export default function WalletPage() {
   const { showToast } = useToast();
   const [connected, setConnected] = useState(false);
   const [solflare, setSolflare] = useState<any>(null);
-  const [connection, setConnection] = useState<Connection | null>(null);
   const [currentWallet, setCurrentWallet] = useState<string>('');
 
   useEffect(() => {
     const sf = new Solflare();
-    const conn = new Connection(
-      'https://fittest-crimson-night.solana-mainnet.discover.quiknode.pro/ce5a19f97c9f96af9d395263ffb2bdba8ea007eb/',
-      'confirmed'
-    );
     
     setSolflare(sf);
-    setConnection(conn);
     
     sf.detectWallet().then((detected: boolean) => console.log('Wallet detected', detected));
   }, []);
@@ -59,23 +52,12 @@ export default function WalletPage() {
     }
   };
 
-  const handleDisconnect = async () => {
-    try {
-      await solflare?.disconnect();
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   const handleSignMessage = async () => {
     console.log('handleSignMessage ::: ');
     try {
-      const signature = await solflare?.signMessage(
-        new TextEncoder().encode('Yes, I want to be part of this.'),
-        'utf8'
-      );
       
       if (currentWallet) {
+        console.log('currentWallet ::: ', currentWallet);
         const response = await fetch('/api/wallets', {
           method: 'POST',
           headers: {
@@ -84,6 +66,7 @@ export default function WalletPage() {
           body: JSON.stringify({ publicKey: currentWallet }),
         });
 
+        console.log('response ::: ', response);
         if (!response.ok) {
           throw new Error('Failed to save wallet address');
         }

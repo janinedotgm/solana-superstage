@@ -1,6 +1,7 @@
 'use client';
 
 import React, { ReactNode } from 'react';
+import Image from 'next/image';
 
 interface PageLayoutProps {
   children: ReactNode;
@@ -10,10 +11,12 @@ export function PageLayout({ children }: PageLayoutProps) {
   return (
     <main>
       <div className="relative isolate overflow-hidden pt-14">
-        <img
-          alt=""
+        <Image
           src="/images/3.jpg"
+          alt=""
           className="absolute inset-0 -z-10 h-full w-full object-cover"
+          width={1920}
+          height={1080}
         />
         {/* Top gradient decoration */}
         <div
