@@ -11,14 +11,18 @@ export default function DownloadPage() {
   const [stats, setStats] = useState<WalletStats>({
     totalWallets: 0
   });
+  const [password, setPassword] = useState('');
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   // Fetch stats when page loads
   useEffect(() => {
-    fetchStats();
-    // Refresh stats every 30 seconds
-    const interval = setInterval(fetchStats, 30000);
-    return () => clearInterval(interval);
-  }, []);
+    if (isAuthenticated) {
+      fetchStats();
+      // Refresh stats every 30 seconds
+      const interval = setInterval(fetchStats, 30000);
+      return () => clearInterval(interval);
+    }
+  }, [isAuthenticated]);
 
   const fetchStats = async () => {
     try {
@@ -58,28 +62,71 @@ export default function DownloadPage() {
     }
   };
 
+  const handlePasswordSubmit = async () => {
+    try {
+      const response = await fetch('/api/check-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ password }),
+      });
+      let body = await response.json();
+      console.log("🚀 ~ handlePasswordSubmit ~ body:", body)
+
+      if (response.ok && body.success) {
+        setIsAuthenticated(true);
+      } else {
+        alert('Incorrect password');
+      }
+    } catch (error) {
+      console.error('Password check failed:', error);
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-8">
-      <h1 className="text-2xl font-bold mb-8">Wallet Collection Dashboard</h1>
-      
-      <div className="bg-white rounded-lg shadow-lg p-6 mb-8 w-full max-w-md">
-        <div className="text-center mb-6">
-          <div className="text-5xl font-bold text-blue-600 mb-2">
-            {stats.totalWallets}
-          </div>
-          <div className="text-gray-600">Total Wallets Collected</div>
+      {!isAuthenticated ? (
+        <div className="bg-white rounded-lg shadow-lg p-6 mb-8 w-full max-w-md">
+          <h1 className="text-2xl font-bold mb-4">Enter Password</h1>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full p-2 mb-4 border rounded"
+            placeholder="Password"
+          />
+          <button
+            onClick={handlePasswordSubmit}
+            className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg"
+          >
+            Submit
+          </button>
         </div>
-      </div>
+      ) : (
+        <>
+          <h1 className="text-2xl font-bold mb-8">Wallet Collection Dashboard</h1>
+          
+          <div className="bg-white rounded-lg shadow-lg p-6 mb-8 w-full max-w-md">
+            <div className="text-center mb-6">
+              <div className="text-5xl font-bold text-blue-600 mb-2">
+                {stats.totalWallets}
+              </div>
+              <div className="text-gray-600">Total Wallets Collected</div>
+            </div>
+          </div>
 
-      <button
-        onClick={handleDownload}
-        disabled={isLoading}
-        className={`px-6 py-3 rounded-lg ${
-          isLoading ? 'bg-gray-400' : 'bg-blue-500 hover:bg-blue-600'
-        } text-white font-semibold transition-colors`}
-      >
-        {isLoading ? 'Downloading...' : 'Download CSV'}
-      </button>
+          <button
+            onClick={handleDownload}
+            disabled={isLoading}
+            className={`px-6 py-3 rounded-lg ${
+              isLoading ? 'bg-gray-400' : 'bg-blue-500 hover:bg-blue-600'
+            } text-white font-semibold transition-colors`}
+          >
+            {isLoading ? 'Downloading...' : 'Download CSV'}
+          </button>
+        </>
+      )}
     </div>
   );
 } 
