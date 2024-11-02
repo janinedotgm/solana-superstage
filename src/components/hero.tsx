@@ -33,7 +33,7 @@ export function Hero({ highlightText, headingText, subheadingText, children }: H
       <div className="mx-auto max-w-7xl px-6 lg:px-8 min-h-screen flex items-center">
         <div className="mx-auto max-w-2xl py-16 sm:py-24 lg:py-32">
           <div className="text-center">
-            <p className="uppercase text-sm lg:font-lg font-bold">
+            <p className="uppercase text-sm lg:text-2xl font-bold">
               <Highlight>{highlightText}</Highlight>
             </p>
             <h1 className="text-balance text-4xl font-semibold tracking-tight text-white sm:text-6xl mt-4">
