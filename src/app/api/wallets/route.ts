@@ -91,7 +91,7 @@ export async function GET() {
     const data = await response.json();
     console.log('Fetched data:', data); // Log the entire response for debugging
 
-    if (!data || data.length === 0) {
+    if (!data) {
       console.error('No items found in the response');
       return NextResponse.json(
         { error: 'No wallet data found' },
