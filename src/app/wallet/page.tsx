@@ -87,12 +87,11 @@ export default function WalletPage() {
           throw new Error('Failed to save wallet address');
         }
       }
-      
+      setShowSignButton(false);
       showToast('That worked! You\'ll receive your tokens soon!🚀', 'success');
     } catch (e) {
       console.error(e);
       showToast('Failed to sign message. Please try again.', 'error');
-      setShowSignButton(false);
     }
   };
 
