@@ -33,7 +33,7 @@ export default function Home() {
     <div>
       <Hero
         highlightText="Solana Super Stage"
-        headingText="an airdrop powered by SolFlare"
+        headingText="Airdrop powered by SolFlare"
         subheadingText="Connect your wallet and sign a message to secure your airdrop."
       >
         {QrCodeComponent}
