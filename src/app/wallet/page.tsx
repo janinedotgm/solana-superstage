@@ -8,7 +8,7 @@ import { useToast } from '@/components/toast';
 import { PublicKey } from "@solana/web3.js";
 import nacl from 'tweetnacl';
 
-const MSG = 'Yes, I want to be part of this.';
+const MSG = 'Yes, please sign me up for the airdrop!';
 
 export default function WalletPage() {
   const { showToast } = useToast();
