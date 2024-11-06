@@ -98,7 +98,7 @@ export default function WalletPage() {
   return (
     <Hero
       highlightText="Solana Superstage"
-      headingText={connected && !showSignButton ? "That's all! Enjoy." : "Almost there!"}!"
+      headingText={connected && !showSignButton ? "That's all! Enjoy." : "Almost there!"}
       subheadingText={connected ? "Click on the button below to sign a message, to prove you want to receive crypto." : "Click on the button below to connect your wallet, so you can receive crypto."}
     >
       {connected ? (
