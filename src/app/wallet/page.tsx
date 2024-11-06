@@ -92,6 +92,7 @@ export default function WalletPage() {
     } catch (e) {
       console.error(e);
       showToast('Failed to sign message. Please try again.', 'error');
+      setShowSignButton(false);
     }
   };
 
