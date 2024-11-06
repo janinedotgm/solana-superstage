@@ -15,6 +15,7 @@ export default function WalletPage() {
   const [connected, setConnected] = useState(false);
   const [solflare, setSolflare] = useState<any>(null);
   const [currentWallet, setCurrentWallet] = useState<string>('');
+  const [showSignButton, setShowSignButton] = useState(true);
 
   useEffect(() => {
     const sf = new Solflare();
@@ -102,12 +103,13 @@ export default function WalletPage() {
     >
       {connected ? (
         <div className="flex flex-col gap-4 items-center">
-          <Button 
+          {showSignButton && (<Button 
             onClick={handleSignMessage} 
             className="px-4 py-2 bg-white text-white font-bold rounded hover:bg-blue-600 transition-colors"
           >
             Sign Message
-          </Button>
+          </Button> )}
+ 
         </div>
       ) : (
         <Button 
