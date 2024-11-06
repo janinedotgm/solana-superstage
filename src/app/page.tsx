@@ -32,9 +32,9 @@ export default function Home() {
   return (
     <div>
       <Hero
-        highlightText="Solana Superstage"
+        highlightText="Solana Super Stage"
         headingText="Art, Innovation, Change"
-        subheadingText="We believe in a future where ownership, copyrights, and fairness matter. We can't give you that today, but we can invite you to join us on this quest and get some free tokens. ;)"
+        subheadingText="Connect your wallet and sign a message to secure your airdrop."
       >
         {QrCodeComponent}
       </Hero>
